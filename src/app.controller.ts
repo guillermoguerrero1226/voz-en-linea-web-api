@@ -61,7 +61,7 @@ export class AppController {
   }
 
   @Post()
-  async sendNotification(@Body() payload: NotitifacionPayload): Promise<void> {
+  async sendNotification(@Body() payload: NotitifacionPayload): Promise<any> {
     const response = {
         status: HttpStatus.OK,
         message: 'Se ha enviado la push notificacion correctamente',
