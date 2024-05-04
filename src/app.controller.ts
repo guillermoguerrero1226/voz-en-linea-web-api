@@ -79,6 +79,7 @@ export class AppController {
         response.body = error
     }
 
+    return response;
   }
 
   private sendPushNotification(subscription, notificationInfo: string) {
