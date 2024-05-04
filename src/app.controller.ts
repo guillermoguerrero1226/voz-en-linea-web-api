@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 const webpush = require('web-push');
 
@@ -62,11 +62,23 @@ export class AppController {
 
   @Post()
   async sendNotification(@Body() payload: NotitifacionPayload): Promise<void> {
-    const subscription = payload.subscription;
-    const notificationData = payload.notificationData;
-    const pushNotificationInfo = this.getNotificationInfo(notificationData);
+    const response = {
+        status: HttpStatus.OK,
+        message: 'Se ha enviado la push notificacion correctamente',
+        body: {}
+    }
+    try {
+        const subscription = payload.subscription;
+        const notificationData = payload.notificationData;
+        const pushNotificationInfo = this.getNotificationInfo(notificationData);
 
-    return this.sendPushNotification(subscription, pushNotificationInfo);
+        return this.sendPushNotification(subscription, pushNotificationInfo);
+    } catch (error) {
+        response.status = HttpStatus.INTERNAL_SERVER_ERROR,
+        response.message = 'Ha ocurrido un error enviando la push notification',
+        response.body = error
+    }
+
   }
 
   private sendPushNotification(subscription, notificationInfo: string) {
