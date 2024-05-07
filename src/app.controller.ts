@@ -72,7 +72,7 @@ export class AppController {
         const notificationData = payload.notificationData;
         const pushNotificationInfo = this.getNotificationInfo(notificationData);
 
-        return this.sendPushNotification(subscription, pushNotificationInfo);
+        await this.sendPushNotification(subscription, pushNotificationInfo);
     } catch (error) {
         response.status = HttpStatus.INTERNAL_SERVER_ERROR,
         response.message = 'Ha ocurrido un error enviando la push notification',
@@ -82,16 +82,8 @@ export class AppController {
     return response;
   }
 
-  private sendPushNotification(subscription, notificationInfo: string) {
-    webpush
-      .sendNotification(subscription, notificationInfo, options)
-      .then((log) => {
-        console.log('Push notification sent.');
-        console.log(log);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+   private async sendPushNotification(subscription, notificationInfo: string) {
+    await webpush.sendNotification(subscription, notificationInfo, options);
   }
 
 private getNotificationInfo(
