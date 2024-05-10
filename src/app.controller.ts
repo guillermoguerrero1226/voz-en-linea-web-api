@@ -38,6 +38,8 @@ type WebPushNotificationInfo = {
   notification: {
     title: string;
     body: string;
+    vibrate: any;
+    icon: string;
     data: {
       onActionClick: {
         default: {
@@ -101,6 +103,8 @@ private getNotificationInfo(
       notification: {
         title: title,
         body: body,
+        vibrate: [200, 100, 200],
+        icon: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihbjXMaNfI2Jr34txmRa0---zlLcBujWCAxMoJBmUAz8GGXxjf9Y3R_Vk9iXa97cyFekOxhmU1_ulah3krg_h6U0JKlJH5eZqg=w1920-h881",
         data: {
           onActionClick: {
             default: {
